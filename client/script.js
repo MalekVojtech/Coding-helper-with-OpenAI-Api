@@ -33,9 +33,6 @@ function typeText(element, text) {
     }, 20)
 }
 
-// generate unique ID for each message div of bot
-// necessary for typing text effect for that specific reply
-// without unique ID, typing text will work on every element
 function generateUniqueId() {
     const timestamp = Date.now();
     const randomNumber = Math.random();
@@ -86,7 +83,7 @@ const handleSubmit = async (e) => {
     // messageDiv.innerHTML = "..."
     loader(messageDiv)
 
-    const response = await fetch('http://localhost:5000', {
+    const response = await fetch('https://ai-coding-helper-7jt5.onrender.com', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -101,13 +98,13 @@ const handleSubmit = async (e) => {
 
     if (response.ok) {
         const data = await response.json();
-        const parsedData = data.bot.trim() // trims any trailing spaces/'\n' 
+        const parsedData = data.bot.trim() 
 
         typeText(messageDiv, parsedData)
     } else {
         const err = await response.text()
 
-        messageDiv.innerHTML = "Something went wrong"
+        messageDiv.innerHTML = "musíme to opravit :D"
         alert(err)
     }
 }
